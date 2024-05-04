@@ -4,33 +4,23 @@ plugins {
     id("net.labymod.gradle.addon")
 }
 
-group = "org.example"
-version = "1.0.0"
+group = "com.github.wildtooth"
+version = "0.0.1"
 
 labyMod {
-    defaultPackageName = "org.example" //change this to your main package name (used by all modules)
+    defaultPackageName = "com.github.wildtooth.guardian" //change this to your main package name (used by all modules)
     addonInfo {
-        namespace = "example"
-        displayName = "ExampleAddon"
-        author = "Example Author"
-        description = "Example Description"
-        minecraftVersion = "*"
+        namespace = "guardian"
+        displayName = "Guardian"
+        author = "Champen_V1ldtand"
+        description = "Guardian er et addon specielt lavet til Vagter på Freakyville"
+        minecraftVersion = "1.8.9"
         version = System.getenv().getOrDefault("VERSION", "0.0.1")
     }
 
     minecraft {
         registerVersions(
-                "1.8.9",
-                "1.12.2",
-                "1.16.5",
-                "1.17.1",
-                "1.18.2",
-                "1.19.2",
-                "1.19.3",
-                "1.19.4",
-                "1.20.1",
-                "1.20.2",
-                "1.20.4"
+                "1.8.9"
         ) { version, provider ->
             configureRun(provider, version)
         }

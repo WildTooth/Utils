@@ -1,0 +1,13 @@
+{
+  "guardian": {
+    "settings": {
+      "name": "Guardian",
+      "enabled": {
+        "name": "Slået til"
+      }
+    },
+    "log": {
+      "enabled": "Guardian er slået til"
+    }
+  }
+}
