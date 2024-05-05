@@ -1,13 +1,15 @@
 package com.github.wildtooth.guardian.core.services.guard;
 
-import com.github.wildtooth.guardian.core.internatiolization.TranslationOutput;
+import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
 import com.github.wildtooth.guardian.core.services.Registrable;
 import com.github.wildtooth.guardian.core.services.Service;
+import net.labymod.api.util.logging.Logging;
 
-public class GuardService extends TranslationOutput implements Service, Registrable {
+public class GuardService implements Service, Registrable {
+  private final TranslationLogger logger;
 
   public GuardService() {
-    super();
+    this.logger = new TranslationLogger(Logging.getLogger());
   }
 
   @Override
@@ -22,11 +24,11 @@ public class GuardService extends TranslationOutput implements Service, Registra
 
   @Override
   public void initialize() {
-    info("");
+    this.logger.info("guardian.service.shared.initialize", this.logger.translate("guardian.service.guard.name"));
   }
 
   @Override
   public void shutdown() {
-
+    this.logger.info("guardian.service.shared.shutdown", this.logger.translate("guardian.service.guard.name"));
   }
 }

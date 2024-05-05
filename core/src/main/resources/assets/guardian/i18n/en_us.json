@@ -8,6 +8,15 @@
     },
     "log": {
       "enabled": "Guardian er slået til"
+    },
+    "service": {
+      "guard": {
+        "name": "Vagt"
+      },
+      "shared": {
+        "initialize": "%s-Service er initialiseret",
+        "shutdown": "%s-Service er lukket ned"
+      }
     }
   }
 }
