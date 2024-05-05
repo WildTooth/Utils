@@ -13,6 +13,9 @@
       "guard": {
         "name": "Vagt"
       },
+      "posts": {
+        "name": "Vagtpost"
+      },
       "shared": {
         "initialize": "%s-Service er initialiseret",
         "shutdown": "%s-Service er lukket ned"
