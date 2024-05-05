@@ -29,4 +29,8 @@ public final class TranslationLogger {
   public String translate(String key, Object... args) {
     return I18n.translate(key, args);
   }
+
+  public Logging getLogger() {
+    return this.logger;
+  }
 }
