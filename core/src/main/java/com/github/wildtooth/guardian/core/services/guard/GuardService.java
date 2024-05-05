@@ -4,12 +4,17 @@ import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
 import com.github.wildtooth.guardian.core.services.Registrable;
 import com.github.wildtooth.guardian.core.services.Service;
 import net.labymod.api.util.logging.Logging;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class GuardService implements Service, Registrable {
   private final TranslationLogger logger;
+  private final Map<UUID, Guard> uuidGuardMap;
 
   public GuardService() {
     this.logger = new TranslationLogger(Logging.getLogger());
+    this.uuidGuardMap = new HashMap<>();
   }
 
   @Override
