@@ -5,10 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class Registry {
+  private static Registry instance;
   private final List<Registrable> registrar;
 
-  public Registry() {
+  private Registry() {
     this.registrar = new ArrayList<>();
+  }
+
+  public static Registry getInstance() {
+    if (instance == null) {
+      instance = new Registry();
+    }
+    return instance;
   }
 
   public void register(Registrable registrable) {
