@@ -1,8 +1,8 @@
-package com.github.wildtooth.guardian.core.services.posts;
+package com.github.wildtooth.guardian.core.services.guard;
 
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
-import com.github.wildtooth.guardian.core.services.Registrable;
-import com.github.wildtooth.guardian.core.services.Service;
+import com.github.wildtooth.guardian.api.service.Registrable;
+import com.github.wildtooth.guardian.api.service.Service;
 
 public class GuardPostService implements Service, Registrable {
   private final TranslationLogger logger;
@@ -12,12 +12,12 @@ public class GuardPostService implements Service, Registrable {
   }
 
   @Override
-  public void register() {
+  public void onRegister() {
     initialize();
   }
 
   @Override
-  public void unregister() {
+  public void onUnregister() {
     shutdown();
   }
 

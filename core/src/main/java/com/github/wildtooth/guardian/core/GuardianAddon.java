@@ -1,6 +1,7 @@
 package com.github.wildtooth.guardian.core;
 
-import com.github.wildtooth.guardian.core.services.Registry;
+import com.github.wildtooth.guardian.api.service.RegistryProvider;
+import com.github.wildtooth.guardian.core.services.DefaultRegistry;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.api.util.I18n;
@@ -12,7 +13,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
   protected void enable() {
     this.registerSettingCategory();
 
-    Registry registry = Registry.getInstance();
+    RegistryProvider.setRegistry(new DefaultRegistry());
 
     this.logger().info(I18n.translate("guardian.log.enabled"));
   }
