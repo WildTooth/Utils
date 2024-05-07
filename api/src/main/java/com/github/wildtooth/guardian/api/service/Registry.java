@@ -9,9 +9,11 @@ public interface Registry {
 
   /**
    * Registers a {@link Registrable} object.
+   * @param clazz The class of the object to register.
    * @param registrable The object to register.
+   * @param override Whether to override the registration if the class is already registered.
    */
-  void register(Registrable registrable);
+  void register(Class<? extends Registrable> clazz, Registrable registrable, boolean override);
 
   /**
    * Unregisters a {@link Registrable} object.

@@ -7,7 +7,7 @@ public class DefaultGuard implements Guard {
   private final UUID uuid;
   private final String name;
 
-  private DefaultGuard(UUID uuid, String name) {
+  public DefaultGuard(UUID uuid, String name) {
     this.uuid = uuid;
     this.name = name;
   }

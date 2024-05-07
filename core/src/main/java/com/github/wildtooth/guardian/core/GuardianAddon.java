@@ -2,6 +2,7 @@ package com.github.wildtooth.guardian.core;
 
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.core.services.DefaultRegistry;
+import com.github.wildtooth.guardian.core.services.guard.DefaultGuardService;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.api.util.I18n;

@@ -9,6 +9,14 @@
     "log": {
       "enabled": "Guardian er slået til"
     },
+    "registry": {
+      "logOutPut": {
+        "registered": "Registrering af CLASS: %s af TYPE %s, er gennemført",
+        "unregistered": "Afmelding af CLASS: %s af TYPE %s, er gennemført",
+        "performingOverride": "Overskriver registrering af CLASS: %s af TYPE %s",
+        "alreadyRegistered": "Registrering af CLASS: %s af TYPE %s fejlede, da denne allerede er registreret"
+      }
+    },
     "service": {
       "guard": {
         "name": "Vagt"
