@@ -2,14 +2,19 @@ package com.github.wildtooth.guardian.core.services;
 
 import com.github.wildtooth.guardian.api.service.Registrable;
 import com.github.wildtooth.guardian.api.service.Registry;
+import com.github.wildtooth.guardian.api.service.Service;
+import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
+import net.labymod.api.util.logging.Logging;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class DefaultRegistry implements Registry {
+  private final TranslationLogger logger;
   private final Map<Class<? extends Registrable>, Registrable> registrar;
 
   public DefaultRegistry() {
+    this.logger = new TranslationLogger(Logging.getLogger());
     this.registrar = new HashMap<>();
   }
 
