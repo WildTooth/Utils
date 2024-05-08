@@ -28,6 +28,12 @@
         "initialize": "%s-Service er initialiseret",
         "shutdown": "%s-Service er lukket ned"
       }
+    },
+    "notifications": {
+      "info": "Information",
+      "warning": "Advarsel",
+      "error": "Fejl",
+      "debug": "Debug"
     }
   }
 }
