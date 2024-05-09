@@ -13,7 +13,7 @@ labyMod {
         namespace = "guardian"
         displayName = "Guardian"
         author = "Champen_V1ldtand"
-        description = "Guardian er et addon specielt lavet til Vagter på Freakyville"
+        description = "Guardian er et uofficielt addon specielt lavet til Vagter på Freakyville"
         minecraftVersion = "1.8.9"
         version = System.getenv().getOrDefault("VERSION", "0.0.1")
     }
