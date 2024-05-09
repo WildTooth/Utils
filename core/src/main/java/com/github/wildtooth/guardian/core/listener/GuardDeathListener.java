@@ -1,7 +1,11 @@
 package com.github.wildtooth.guardian.core.listener;
 
 import com.github.wildtooth.guardian.api.event.GuardDeathEvent;
+import com.github.wildtooth.guardian.core.util.Hud;
+import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.event.Subscribe;
+import net.labymod.api.util.Pair;
 
 public class GuardDeathListener {
   public GuardDeathListener() {
@@ -9,6 +13,17 @@ public class GuardDeathListener {
 
   @Subscribe
   public void onGuardDeath(GuardDeathEvent event) {
-
+    Hud.displayTitle(
+        Pair.of(
+            Component.empty(),
+            Component.translatable(
+                "guardian.event.guardDeath",
+                NamedTextColor.RED,
+                Component.text(event.getGuard().getName(), NamedTextColor.YELLOW),
+                event.getBroadLocation()
+            )
+        ),
+        10, 40, 10
+    );
   }
 }

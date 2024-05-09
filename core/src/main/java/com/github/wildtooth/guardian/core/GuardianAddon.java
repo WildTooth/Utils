@@ -3,6 +3,9 @@ package com.github.wildtooth.guardian.core;
 import com.github.wildtooth.guardian.api.ConstantsProvider;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
+import com.github.wildtooth.guardian.core.command.TestCommand;
+import com.github.wildtooth.guardian.core.listener.GuardDeathListener;
+import com.github.wildtooth.guardian.core.listener.GuardShiftSwitchListener;
 import com.github.wildtooth.guardian.core.services.DefaultRegistry;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardService;
 import com.github.wildtooth.guardian.core.util.DefaultConstants;
@@ -21,6 +24,10 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     RegistryProvider.getRegistry().register(GuardService.class, new DefaultGuardService(), false);
 
     ConstantsProvider.setConstants(new DefaultConstants());
+
+    registerCommand(new TestCommand());
+    registerListener(new GuardShiftSwitchListener());
+    registerListener(new GuardDeathListener());
 
     this.logger().info(I18n.translate("guardian.log.enabled"));
   }

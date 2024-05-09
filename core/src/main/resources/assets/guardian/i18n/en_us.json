@@ -34,6 +34,13 @@
       "warning": "Advarsel",
       "error": "Fejl",
       "debug": "Debug"
+    },
+    "event": {
+      "shiftSwitch": {
+        "join": "Vagten %s er stemplet ind i samme fængselsblok som dig!",
+        "leave": "Vagten %s er stemplet ud af din fængselsblok!"
+      },
+      "guardDeath": "Vagten %s døde lige i %s!"
     }
   }
 }
