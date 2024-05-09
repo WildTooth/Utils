@@ -27,11 +27,11 @@ public final class Hud {
   }
 
   public static void displayTitle(Pair<Component, Component> titleSubTitlePair, int fadeInTicks, int stayTicks, int fadeOutTicks) {
-    Title.Builder titleBuilder = Title.builder();
-    titleBuilder.title(Objects.requireNonNull(titleSubTitlePair.getFirst()));
-    titleBuilder.subTitle(Objects.requireNonNull(titleSubTitlePair.getSecond()));
-    titleBuilder.timing(fadeInTicks, stayTicks, fadeOutTicks);
-    titleBuilder.show();
+    Title.builder()
+      .title(Objects.requireNonNull(titleSubTitlePair.getFirst()))
+      .subTitle(Objects.requireNonNull(titleSubTitlePair.getSecond()))
+      .timing(fadeInTicks, stayTicks, fadeOutTicks)
+      .show();
   }
 
   public static void info(String key, Object... args) {

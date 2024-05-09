@@ -16,12 +16,10 @@ public class GuardDeathListener {
     Hud.displayTitle(
         Pair.of(
             Component.empty(),
-            Component.translatable(
-                "guardian.event.guardDeath",
-                NamedTextColor.RED,
+            Component.translatable("guardian.event.guardDeath",
                 Component.text(event.getGuard().getName(), NamedTextColor.YELLOW),
                 event.getBroadLocation()
-            )
+            ).colorIfAbsent(NamedTextColor.RED)
         ),
         10, 40, 10
     );
