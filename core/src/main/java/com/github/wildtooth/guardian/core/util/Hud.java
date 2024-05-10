@@ -2,6 +2,7 @@ package com.github.wildtooth.guardian.core.util;
 
 import com.github.wildtooth.guardian.api.Constants;
 import com.github.wildtooth.guardian.api.ConstantsProvider;
+import net.labymod.api.Laby;
 import net.labymod.api.client.chat.Title;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
@@ -11,6 +12,7 @@ import net.labymod.api.client.component.format.TextDecoration;
 import net.labymod.api.notification.Notification;
 import net.labymod.api.notification.Notification.Type;
 import net.labymod.api.util.Pair;
+import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public final class Hud {
@@ -26,12 +28,16 @@ public final class Hud {
 
   }
 
-  public static void displayTitle(Pair<Component, Component> titleSubTitlePair, int fadeInTicks, int stayTicks, int fadeOutTicks) {
-    Title.builder()
-      .title(Objects.requireNonNull(titleSubTitlePair.getFirst()))
-      .subTitle(Objects.requireNonNull(titleSubTitlePair.getSecond()))
+  public static void displayTitle(@NotNull Pair<Component, Component> titleSubTitlePair, int fadeInTicks, int stayTicks, int fadeOutTicks) {
+    if (Objects.isNull(titleSubTitlePair.getFirst()) || Objects.isNull(titleSubTitlePair.getSecond())) {
+      return;
+    }
+    Title title = Title.builder()
+      .title(titleSubTitlePair.getFirst())
+      .subTitle(titleSubTitlePair.getSecond())
       .timing(fadeInTicks, stayTicks, fadeOutTicks)
-      .show();
+      .build();
+    Laby.labyAPI().minecraft().showTitle(title);
   }
 
   public static void info(String key, Object... args) {
