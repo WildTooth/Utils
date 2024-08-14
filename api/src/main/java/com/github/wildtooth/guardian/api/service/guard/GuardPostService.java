@@ -26,4 +26,6 @@ public interface GuardPostService extends Service, Registrable, PersistentDataHo
   boolean isGuardPostOnCooldown(GuardPost guardPost);
 
   Map<GuardPost, Long> getGuardPostTimeMap();
+
+  GuardPost createGuardPost(String prisonSector, int numericalIdentifier, String displayName, int personalCooldown, int x, int y, int z);
 }

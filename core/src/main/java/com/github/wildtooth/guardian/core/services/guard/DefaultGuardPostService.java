@@ -5,7 +5,10 @@ import com.github.wildtooth.guardian.api.save.GuardPostSaveData;
 import com.github.wildtooth.guardian.api.save.SaveData;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.util.FileUtil;
+import com.github.wildtooth.guardian.core.guard.DefaultGuardPost;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
+import net.labymod.api.util.Triple;
+import net.labymod.api.util.io.web.request.Request;
 import net.labymod.api.util.logging.Logging;
 import java.io.File;
 import java.util.HashMap;
@@ -97,6 +100,13 @@ public class DefaultGuardPostService implements GuardPostService {
   @Override
   public Map<GuardPost, Long> getGuardPostTimeMap() {
     return this.guardPostLastUpdateMap;
+  }
+
+  @Override
+  public GuardPost createGuardPost(String prisonSector, int numericalIdentifier, String displayName,
+      int personalCooldown, int x, int y, int z) {
+    Triple<Integer, Integer, Integer> prisonSectorCoordinates = new Triple<>(x, y, z);
+    return new DefaultGuardPost(prisonSector, numericalIdentifier, displayName, personalCooldown, prisonSectorCoordinates);
   }
 
   @Override
