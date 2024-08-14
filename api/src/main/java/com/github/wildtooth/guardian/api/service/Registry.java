@@ -22,10 +22,23 @@ public interface Registry {
   void unregister(Registrable registrable);
 
   /**
+   * Unregisters a {@link Registrable} of the specified class.
+   * @param clazz The class of the object to unregister.
+   */
+  void unregister(Class<? extends Registrable> clazz);
+
+  /**
    * Gets a {@link Registrable} object of the specified class.
    * @param clazz The class of the object to get.
    * @param <T> The type of the object to get.
    * @return An {@link Optional} containing the object if it exists, otherwise an empty {@link Optional}.
    */
   <T extends Registrable> Optional<T> get(Class<T> clazz);
+
+  /**
+   * Closes the registry.
+   * This should be called when the registry is no longer needed.
+   * This will unregister all registered objects.
+   */
+  void close();
 }

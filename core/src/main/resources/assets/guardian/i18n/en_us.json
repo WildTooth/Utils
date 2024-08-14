@@ -22,7 +22,10 @@
         "name": "Vagt"
       },
       "posts": {
-        "name": "Vagtpost"
+        "name": "Vagtpost",
+        "saveData": {
+          "loadFailed": "Der opstod en fejl under indlæsning af data for vagtpostservicen, med fejlbeskeden: %s"
+        }
       },
       "shared": {
         "initialize": "%s-Service er initialiseret",

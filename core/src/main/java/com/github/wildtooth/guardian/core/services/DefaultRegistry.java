@@ -42,7 +42,22 @@ public class DefaultRegistry implements Registry {
   }
 
   @Override
+  public void unregister(Class<? extends Registrable> clazz) {
+    Registrable registrable = registrar.get(clazz);
+    if (registrable != null) {
+      this.unregister(registrable);
+    }
+  }
+
+  @Override
   public <T extends Registrable> Optional<T> get(Class<T> clazz) {
     return Optional.ofNullable(clazz.cast(registrar.get(clazz)));
+  }
+
+  @Override
+  public void close() {
+    for (Registrable registrable : registrar.values()) {
+      this.unregister(registrable);
+    }
   }
 }

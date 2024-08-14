@@ -1,9 +1,13 @@
 package com.github.wildtooth.guardian.core.services.guard;
 
 import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.save.GuardPostSaveData;
+import com.github.wildtooth.guardian.api.save.SaveData;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
+import com.github.wildtooth.guardian.api.util.FileUtil;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
 import net.labymod.api.util.logging.Logging;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -31,11 +35,18 @@ public class DefaultGuardPostService implements GuardPostService {
 
   @Override
   public void initialize() {
+    try {
+      GuardPostSaveData guardPostSaveData = GuardPostSaveData.loadFromSaveData(getSavePath());
+      loadSaveData(guardPostSaveData);
+    } catch (Exception e) {
+      this.logger.warn("guardian.service.posts.saveData.loadFailed", e.getMessage());
+    }
     this.logger.info("guardian.service.shared.initialize", this.logger.translate("guardian.service.posts.name"));
   }
 
   @Override
   public void shutdown() {
+    save();
     this.logger.info("guardian.service.shared.shutdown", this.logger.translate("guardian.service.posts.name"));
   }
 
@@ -86,5 +97,37 @@ public class DefaultGuardPostService implements GuardPostService {
   @Override
   public Map<GuardPost, Long> getGuardPostTimeMap() {
     return this.guardPostLastUpdateMap;
+  }
+
+  @Override
+  public void loadSaveData(SaveData saveData) {
+    if (saveData instanceof GuardPostSaveData guardPostSaveData) {
+      Map<GuardPost, Long> lastGuardPostVisit = guardPostSaveData.getLastGuardPostVisit();
+      for (GuardPost guardPost : lastGuardPostVisit.keySet()) {
+        this.guardPostLastUpdateMap.put(guardPost, lastGuardPostVisit.get(guardPost));
+      }
+    } else {
+      throw new IllegalArgumentException("SaveData is not of type GuardPostSaveData");
+    }
+  }
+
+  @Override
+  public void save() {
+    GuardPostSaveData guardPostSaveData = GuardPostSaveData.create(this);
+    guardPostSaveData.executeSave();
+  }
+
+  @Override
+  public File getSavePath() {
+    File file = FileUtil.getGuardianFile("saves", "guard_posts.json");
+    try {
+      if (!file.exists()) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+    } catch (Exception e) {
+      this.logger.warn("guardian.service.posts.saveData.createFailed", e.getMessage());
+    }
+    return file;
   }
 }
