@@ -11,14 +11,18 @@ public class DefaultGuardPost implements GuardPost {
   private final int numericalIdentifier;
   private final String displayName;
   private final int personalCooldown;
-  private final Triple<Integer, Integer, Integer> coordinates;
+  private final int x;
+  private final int y;
+  private final int z;
 
-  public DefaultGuardPost(String prisonSector, int numericalIdentifier, String displayName, int personalCooldown, Triple<Integer, Integer, Integer> coordinates) {
+  public DefaultGuardPost(String prisonSector, int numericalIdentifier, String displayName, int personalCooldown, int x, int y, int z) {
     this.prisonSector = prisonSector;
     this.numericalIdentifier = numericalIdentifier;
     this.displayName = displayName;
     this.personalCooldown = personalCooldown;
-    this.coordinates = coordinates;
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
   @Override
@@ -43,7 +47,7 @@ public class DefaultGuardPost implements GuardPost {
 
   @Override
   public Triple<Integer, Integer, Integer> getCoordinates() {
-    return coordinates;
+    return new Triple<>(x, y, z);
   }
 
   @Override
@@ -68,10 +72,13 @@ public class DefaultGuardPost implements GuardPost {
   @Override
   public String toString() {
     return "DefaultGuardPost{" +
-        "prisonSector=" + prisonSector +
+        "prisonSector='" + prisonSector + '\'' +
         ", numericalIdentifier=" + numericalIdentifier +
         ", displayName='" + displayName + '\'' +
-        ", coordinates=" + coordinates +
+        ", personalCooldown=" + personalCooldown +
+        ", x=" + x +
+        ", y=" + y +
+        ", z=" + z +
         '}';
   }
 }

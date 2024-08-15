@@ -1,10 +1,12 @@
 package com.github.wildtooth.guardian.core;
 
 import com.github.wildtooth.guardian.api.ConstantsProvider;
+import com.github.wildtooth.guardian.api.gson.SpecializedGsonProvider;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
 import com.github.wildtooth.guardian.core.command.TestCommand;
+import com.github.wildtooth.guardian.core.gson.DefaultSpecializedGson;
 import com.github.wildtooth.guardian.core.listener.GameShutdownListener;
 import com.github.wildtooth.guardian.core.listener.GuardDeathListener;
 import com.github.wildtooth.guardian.core.listener.GuardShiftSwitchListener;
@@ -23,11 +25,13 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
   protected void enable() {
     this.registerSettingCategory();
 
+    SpecializedGsonProvider.setSpecializedGson(new DefaultSpecializedGson());
+
+    ConstantsProvider.setConstants(new DefaultConstants());
+
     RegistryProvider.setRegistry(new DefaultRegistry());
     RegistryProvider.getRegistry().register(GuardService.class, new DefaultGuardService(), false);
     RegistryProvider.getRegistry().register(GuardPostService.class, new DefaultGuardPostService(), false);
-
-    ConstantsProvider.setConstants(new DefaultConstants());
 
     registerCommand(new TestCommand());
     registerListener(new GuardShiftSwitchListener());

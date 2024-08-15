@@ -1,5 +1,6 @@
 package com.github.wildtooth.guardian.core.services.guard;
 
+import com.github.wildtooth.guardian.api.ConstantsProvider;
 import com.github.wildtooth.guardian.api.guard.GuardPost;
 import com.github.wildtooth.guardian.api.save.GuardPostSaveData;
 import com.github.wildtooth.guardian.api.save.SaveData;
@@ -7,10 +8,13 @@ import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.util.FileUtil;
 import com.github.wildtooth.guardian.core.guard.DefaultGuardPost;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
-import net.labymod.api.util.Triple;
 import net.labymod.api.util.io.web.request.Request;
+import net.labymod.api.util.io.web.request.Response;
 import net.labymod.api.util.logging.Logging;
 import java.io.File;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -38,11 +42,26 @@ public class DefaultGuardPostService implements GuardPostService {
 
   @Override
   public void initialize() {
+    Response<String> guardPostResponse = Request.ofString()
+        .url(ConstantsProvider.getConstants().data().guardPostData())
+        .executeSync();
+    ArrayList<String[]> guardPostData = new ArrayList<>();
+    for (String line : guardPostResponse.get().split("\n")) {
+      guardPostData.add(line.split(","));
+    }
+    for (String[] guardPost : guardPostData) {
+      addGuardPost(createGuardPost(guardPost[0], Integer.parseInt(guardPost[1]), guardPost[2], Integer.parseInt(guardPost[3]), Integer.parseInt(guardPost[4]), Integer.parseInt(guardPost[5]), Integer.parseInt(guardPost[6])));
+    }
     try {
       GuardPostSaveData guardPostSaveData = GuardPostSaveData.loadFromSaveData(getSavePath());
       loadSaveData(guardPostSaveData);
     } catch (Exception e) {
       this.logger.warn("guardian.service.posts.saveData.loadFailed", e.getMessage());
+    }
+    // print map
+    for (Map.Entry<GuardPost, Long> entry : this.guardPostLastUpdateMap.entrySet()) {
+      Logging.getLogger().info(entry.getKey().combinedIdentifier() + ":" + Date.from(
+          Instant.ofEpochMilli(entry.getValue())));
     }
     this.logger.info("guardian.service.shared.initialize", this.logger.translate("guardian.service.posts.name"));
   }
@@ -62,7 +81,7 @@ public class DefaultGuardPostService implements GuardPostService {
   public long getCooldownTime(GuardPost guardPost) {
     final long currentTime = System.currentTimeMillis();
     final long lastTaken = this.guardPostLastUpdateMap.getOrDefault(guardPost, 0L);
-    final long cooldown = guardPost.getPersonalCooldown() * 1000L;
+    final long cooldown = guardPost.getPersonalCooldown() * 60000L;
 
     return Math.max(0, cooldown - (currentTime - lastTaken));
   }
@@ -105,8 +124,7 @@ public class DefaultGuardPostService implements GuardPostService {
   @Override
   public GuardPost createGuardPost(String prisonSector, int numericalIdentifier, String displayName,
       int personalCooldown, int x, int y, int z) {
-    Triple<Integer, Integer, Integer> prisonSectorCoordinates = new Triple<>(x, y, z);
-    return new DefaultGuardPost(prisonSector, numericalIdentifier, displayName, personalCooldown, prisonSectorCoordinates);
+    return new DefaultGuardPost(prisonSector, numericalIdentifier, displayName, personalCooldown, x, y, z);
   }
 
   @Override

@@ -1,10 +1,12 @@
 package com.github.wildtooth.guardian.api.save;
 
+import com.github.wildtooth.guardian.api.gson.SpecializedGsonProvider;
 import com.github.wildtooth.guardian.api.guard.GuardPost;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.util.FileUtil;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -45,7 +47,9 @@ public class GuardPostSaveData implements SaveData {
   }
 
   public static GuardPostSaveData loadFromSaveData(File file) throws FileNotFoundException {
-    Gson gson = new Gson();
+    GsonBuilder gsonBuilder = new GsonBuilder();
+    gsonBuilder.registerTypeAdapter(GuardPost.class, SpecializedGsonProvider.getSpecializedGson().getGuardPostDeserializer());
+    Gson gson = gsonBuilder.create();
     return gson.fromJson(new FileReader(file), GuardPostSaveData.class);
   }
 
