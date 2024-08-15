@@ -26,10 +26,6 @@ public class TestCommand extends Command {
   public boolean execute(String s, String[] strings) {
     if (Objects.equals(s, "test")) {
       Laby.fireEvent(new GuardShiftSwitchEvent(guard, ShiftSwitch.COMING_IN));
-      GuardPostService gps =
-          RegistryProvider.getRegistry().get(GuardPostService.class).orElse(null);
-      assert gps != null;
-      gps.putGuardPostOnCooldown(gps.getGuardPost("C_1").orElse(null));
     } else {
       Laby.fireEvent(new GuardDeathEvent(guard, Component.text("B", NamedTextColor.AQUA)));
     }

@@ -2,6 +2,17 @@ package com.github.wildtooth.guardian.api;
 
 import net.labymod.api.client.gui.icon.Icon;
 
+/**
+ * Constants used throughout the addon to provide a consistent set of values for both the addon itself and depending addons.
+ * <p>
+ *   This interface provides access to the following sub-interfaces:
+ *   <ul>
+ *     <li>{@link I18nKeys} - Contains keys for internationalization.</li>
+ *     <li>{@link Icons} - Contains icons used throughout the addon.</li>
+ *     <li>{@link Data} - Contains data used throughout the addon.</li>
+ *   </ul>
+ *   Implementations of this interface should provide the actual values to return in these methods.
+ */
 public interface Constants {
   I18nKeys i18nKeys();
   Icons icons();
