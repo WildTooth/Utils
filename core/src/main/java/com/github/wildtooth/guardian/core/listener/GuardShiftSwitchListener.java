@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.core.listener;
 
-import com.github.wildtooth.guardian.api.event.GuardShiftSwitchEvent;
+import com.github.wildtooth.guardian.api.event.guard.GuardShiftSwitchEvent;
 import com.github.wildtooth.guardian.core.util.Hud;
 import net.labymod.api.event.Subscribe;
 

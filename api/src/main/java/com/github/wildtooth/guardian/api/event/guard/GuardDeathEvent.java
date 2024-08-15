@@ -1,4 +1,4 @@
-package com.github.wildtooth.guardian.api.event;
+package com.github.wildtooth.guardian.api.event.guard;
 
 import com.github.wildtooth.guardian.api.guard.Guard;
 import net.labymod.api.client.component.Component;

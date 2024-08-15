@@ -1,7 +1,7 @@
 package com.github.wildtooth.guardian.core.listener.convertions;
 
-import com.github.wildtooth.guardian.api.event.GuardShiftSwitchEvent;
-import com.github.wildtooth.guardian.api.event.GuardShiftSwitchEvent.ShiftSwitch;
+import com.github.wildtooth.guardian.api.event.guard.GuardShiftSwitchEvent;
+import com.github.wildtooth.guardian.api.event.guard.GuardShiftSwitchEvent.ShiftSwitch;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
 import net.labymod.api.Laby;

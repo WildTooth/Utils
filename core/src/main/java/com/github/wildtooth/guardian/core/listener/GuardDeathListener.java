@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.core.listener;
 
-import com.github.wildtooth.guardian.api.event.GuardDeathEvent;
+import com.github.wildtooth.guardian.api.event.guard.GuardDeathEvent;
 import com.github.wildtooth.guardian.core.util.Hud;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TranslatableComponent;
