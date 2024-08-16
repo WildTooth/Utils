@@ -1,9 +1,10 @@
 package com.github.wildtooth.guardian.api.refrences;
 
+import com.github.wildtooth.guardian.api.service.Registrable;
 import net.labymod.api.reference.annotation.Referenceable;
-import net.labymod.api.util.IntIntTriple;
+import net.labymod.api.util.Triple;
 
 @Referenceable
-public interface LocationHelper {
-  IntIntTriple<Integer> getIntCoordinates(double range);
+public interface LocationHelper extends Registrable {
+  Triple<Integer, Integer, Integer> getIntCoordinates(double range);
 }

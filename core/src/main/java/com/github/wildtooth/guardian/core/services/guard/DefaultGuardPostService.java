@@ -2,12 +2,16 @@ package com.github.wildtooth.guardian.core.services.guard;
 
 import com.github.wildtooth.guardian.api.ConstantsProvider;
 import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.refrences.LocationHelper;
 import com.github.wildtooth.guardian.api.save.GuardPostSaveData;
 import com.github.wildtooth.guardian.api.save.SaveData;
+import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
+import com.github.wildtooth.guardian.api.util.CoordinateUtil;
 import com.github.wildtooth.guardian.api.util.FileUtil;
 import com.github.wildtooth.guardian.core.guard.DefaultGuardPost;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
+import net.labymod.api.util.Pair;
 import net.labymod.api.util.io.web.request.Request;
 import net.labymod.api.util.io.web.request.Response;
 import net.labymod.api.util.logging.Logging;
@@ -57,11 +61,6 @@ public class DefaultGuardPostService implements GuardPostService {
       loadSaveData(guardPostSaveData);
     } catch (Exception e) {
       this.logger.warn("guardian.service.posts.saveData.loadFailed", e.getMessage());
-    }
-    // print map
-    for (Map.Entry<GuardPost, Long> entry : this.guardPostLastUpdateMap.entrySet()) {
-      Logging.getLogger().info(entry.getKey().combinedIdentifier() + ":" + Date.from(
-          Instant.ofEpochMilli(entry.getValue())));
     }
     this.logger.info("guardian.service.shared.initialize", this.logger.translate("guardian.service.posts.name"));
   }
@@ -119,6 +118,22 @@ public class DefaultGuardPostService implements GuardPostService {
   @Override
   public Map<GuardPost, Long> getGuardPostTimeMap() {
     return this.guardPostLastUpdateMap;
+  }
+
+  @Override
+  public GuardPost getNearestGuardPost() {
+    LocationHelper locationHelper = RegistryProvider.getRegistry().get(LocationHelper.class).orElse(null);
+    if (locationHelper == null) {
+      throw new IllegalStateException("LocationHelper is not registered");
+    }
+    Pair<Double, GuardPost> nearestGuardPost = Pair.of(10.0, null);
+    for (GuardPost guardPost : this.identifierGuardPostMap.values()) {
+      double distance = CoordinateUtil.distance(locationHelper.getIntCoordinates(5), guardPost.getCoordinates());
+      if (distance < nearestGuardPost.getFirst()) {
+        nearestGuardPost = Pair.of(distance, guardPost);
+      }
+    }
+    return nearestGuardPost.getSecond();
   }
 
   @Override

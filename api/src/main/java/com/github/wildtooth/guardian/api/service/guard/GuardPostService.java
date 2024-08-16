@@ -27,5 +27,7 @@ public interface GuardPostService extends Service, Registrable, PersistentDataHo
 
   Map<GuardPost, Long> getGuardPostTimeMap();
 
+  GuardPost getNearestGuardPost();
+
   GuardPost createGuardPost(String prisonSector, int numericalIdentifier, String displayName, int personalCooldown, int x, int y, int z);
 }

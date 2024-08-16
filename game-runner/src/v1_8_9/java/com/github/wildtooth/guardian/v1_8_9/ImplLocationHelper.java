@@ -5,6 +5,7 @@ import net.labymod.api.Laby;
 import net.labymod.api.client.Minecraft;
 import net.labymod.api.models.Implements;
 import net.labymod.api.util.IntIntTriple;
+import net.labymod.api.util.Triple;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 public class ImplLocationHelper implements LocationHelper {
 
   @Override
-  public IntIntTriple<Integer> getIntCoordinates(double range) {
+  public Triple<Integer, Integer, Integer> getIntCoordinates(double range) {
     Minecraft mc = Laby.labyAPI().minecraft();
     EntityPlayerSP player = (EntityPlayerSP) mc.getClientPlayer();
     if (player == null) {
@@ -29,7 +30,7 @@ public class ImplLocationHelper implements LocationHelper {
     int x = pos.getX();
     int y = pos.getY();
     int z = pos.getZ();
-    return new IntIntTriple<>(x, y, z);
+    return new Triple<>(x, y, z);
   }
 
   @Nullable
@@ -43,5 +44,15 @@ public class ImplLocationHelper implements LocationHelper {
     } else {
       return null;
     }
+  }
+
+  @Override
+  public void onRegister() {
+
+  }
+
+  @Override
+  public void onUnregister() {
+
   }
 }

@@ -2,16 +2,16 @@ package com.github.wildtooth.guardian.api.event.guardpost;
 
 import com.github.wildtooth.guardian.api.guard.GuardPost;
 import net.labymod.api.event.Event;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class GuardPostEvent implements Event {
-  private final @NotNull GuardPost guardPost;
+  private final @Nullable GuardPost guardPost;
 
-  public GuardPostEvent(@NotNull GuardPost guardPost) {
+  public GuardPostEvent(@Nullable GuardPost guardPost) {
     this.guardPost = guardPost;
   }
 
-  public @NotNull GuardPost getGuardPost() {
+  public @Nullable GuardPost getGuardPost() {
     return guardPost;
   }
 }

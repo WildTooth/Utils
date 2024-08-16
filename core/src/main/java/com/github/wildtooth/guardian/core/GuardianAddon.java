@@ -1,7 +1,9 @@
 package com.github.wildtooth.guardian.core;
 
 import com.github.wildtooth.guardian.api.ConstantsProvider;
+import com.github.wildtooth.guardian.api.generated.ReferenceStorage;
 import com.github.wildtooth.guardian.api.gson.SpecializedGsonProvider;
+import com.github.wildtooth.guardian.api.refrences.LocationHelper;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
@@ -24,6 +26,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
   @Override
   protected void enable() {
     this.registerSettingCategory();
+    ReferenceStorage referenceStorage = new ReferenceStorage();
 
     SpecializedGsonProvider.setSpecializedGson(new DefaultSpecializedGson());
 
@@ -32,6 +35,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     RegistryProvider.setRegistry(new DefaultRegistry());
     RegistryProvider.getRegistry().register(GuardService.class, new DefaultGuardService(), false);
     RegistryProvider.getRegistry().register(GuardPostService.class, new DefaultGuardPostService(), false);
+    RegistryProvider.getRegistry().register(LocationHelper.class, referenceStorage.locationHelper(), false);
 
     registerCommand(new TestCommand());
     registerListener(new GuardShiftSwitchListener());
