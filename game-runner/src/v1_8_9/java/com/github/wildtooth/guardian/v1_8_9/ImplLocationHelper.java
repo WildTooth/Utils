@@ -10,6 +10,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,6 +42,8 @@ public class ImplLocationHelper implements LocationHelper {
     MovingObjectPosition hit = player.worldObj.rayTraceBlocks(eyesPos, rangeLookVec, false, false, true);
     if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
       return hit.getBlockPos();
+    } else if (hit != null && hit.typeOfHit == MovingObjectType.MISS) {
+      return hit.hitVec != null ? new BlockPos(hit.hitVec) : null;
     } else {
       return null;
     }

@@ -1,6 +1,7 @@
 package com.github.wildtooth.guardian.core;
 
 import com.github.wildtooth.guardian.api.ConstantsProvider;
+import com.github.wildtooth.guardian.api.freakyville.FreakyvilleConnection;
 import com.github.wildtooth.guardian.api.generated.ReferenceStorage;
 import com.github.wildtooth.guardian.api.gson.SpecializedGsonProvider;
 import com.github.wildtooth.guardian.api.refrences.LocationHelper;
@@ -26,7 +27,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
   @Override
   protected void enable() {
     this.registerSettingCategory();
-    ReferenceStorage referenceStorage = new ReferenceStorage();
+    LocationHelper locationHelper = ((ReferenceStorage) this.referenceStorageAccessor()).locationHelper();
 
     SpecializedGsonProvider.setSpecializedGson(new DefaultSpecializedGson());
 
@@ -35,7 +36,12 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     RegistryProvider.setRegistry(new DefaultRegistry());
     RegistryProvider.getRegistry().register(GuardService.class, new DefaultGuardService(), false);
     RegistryProvider.getRegistry().register(GuardPostService.class, new DefaultGuardPostService(), false);
-    RegistryProvider.getRegistry().register(LocationHelper.class, referenceStorage.locationHelper(), false);
+    RegistryProvider.getRegistry().register(LocationHelper.class, locationHelper, false);
+
+    FreakyvilleConnection freakyvilleConnection = new FreakyvilleConnection(
+        this.labyAPI().serverController(),
+        this.labyAPI().minecraft().getClientPlayer()
+    );
 
     registerCommand(new TestCommand());
     registerListener(new GuardShiftSwitchListener());
