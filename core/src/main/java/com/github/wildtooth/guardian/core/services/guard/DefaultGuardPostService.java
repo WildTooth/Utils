@@ -83,6 +83,13 @@ public class DefaultGuardPostService implements GuardPostService {
     return Math.max(0, cooldown - (currentTime - lastTaken));
   }
 
+  public long getCooldownTime(GuardPost guardPost, long lastTaken) {
+    final long currentTime = System.currentTimeMillis();
+    final long cooldown = guardPost.getPersonalCooldown() * 60000L;
+
+    return Math.max(0, cooldown - (currentTime - lastTaken));
+  }
+
   @Override
   public void addGuardPost(GuardPost guardPost) {
     this.identifierGuardPostMap.put(guardPost.combinedIdentifier(), guardPost);
@@ -145,6 +152,15 @@ public class DefaultGuardPostService implements GuardPostService {
     if (saveData instanceof GuardPostSaveData guardPostSaveData) {
       Map<GuardPost, Long> lastGuardPostVisit = guardPostSaveData.getLastGuardPostVisit();
       for (GuardPost guardPost : lastGuardPostVisit.keySet()) {
+        if (!this.identifierGuardPostMap.containsKey(guardPost.combinedIdentifier())) {
+          continue;
+        }
+        if (guardPostLastUpdateMap.containsKey(guardPost)) {
+          continue;
+        }
+        if (getCooldownTime(guardPost, lastGuardPostVisit.get(guardPost)) == 0) {
+          continue;
+        }
         this.guardPostLastUpdateMap.put(guardPost, lastGuardPostVisit.get(guardPost));
       }
     } else {
