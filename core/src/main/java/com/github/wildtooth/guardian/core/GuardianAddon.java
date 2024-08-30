@@ -8,6 +8,7 @@ import com.github.wildtooth.guardian.api.refrences.LocationHelper;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
+import com.github.wildtooth.guardian.core.command.GuardPostCommand;
 import com.github.wildtooth.guardian.core.command.TestCommand;
 import com.github.wildtooth.guardian.core.gson.DefaultSpecializedGson;
 import com.github.wildtooth.guardian.core.listener.GameShutdownListener;
@@ -43,7 +44,8 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
         this.labyAPI().minecraft().getClientPlayer()
     );
 
-    registerCommand(new TestCommand());
+    registerCommand(new TestCommand(freakyvilleConnection));
+    registerCommand(new GuardPostCommand(freakyvilleConnection));
     registerListener(new GuardShiftSwitchListener());
     registerListener(new GuardDeathListener());
     registerListener(new GameShutdownListener());
