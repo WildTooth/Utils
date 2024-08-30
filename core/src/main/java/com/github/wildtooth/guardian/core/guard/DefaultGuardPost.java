@@ -3,6 +3,7 @@ package com.github.wildtooth.guardian.core.guard;
 import com.github.wildtooth.guardian.api.guard.GuardPost;
 import com.github.wildtooth.guardian.api.util.PrisonSector;
 import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.util.Triple;
 
@@ -57,16 +58,14 @@ public class DefaultGuardPost implements GuardPost {
 
   @Override
   public Component toComponent() {
-    Component component = Component.empty();
-    component.append(Component.text("[", NamedTextColor.DARK_GRAY));
-    component.append(PrisonSector.fromString(prisonSector).toComponent());
-    component.append(Component.space());
-    component.append(Component.text("#" + numericalIdentifier, NamedTextColor.GRAY));
-    component.append(Component.text("] ", NamedTextColor.DARK_GRAY));
-
-    component.append(Component.text(displayName, NamedTextColor.WHITE));
-
-    return component;
+    return TextComponent.builder()
+        .append(Component.text("[", NamedTextColor.DARK_GRAY))
+        .append(PrisonSector.fromString(prisonSector).toComponent())
+        .append(Component.space())
+        .append(Component.text("#" + numericalIdentifier, NamedTextColor.GRAY))
+        .append(Component.text("] ", NamedTextColor.DARK_GRAY))
+        .append(Component.text(displayName, NamedTextColor.WHITE))
+        .build();
   }
 
   @Override
@@ -80,5 +79,29 @@ public class DefaultGuardPost implements GuardPost {
         ", y=" + y +
         ", z=" + z +
         '}';
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+
+    DefaultGuardPost that = (DefaultGuardPost) obj;
+
+    if (numericalIdentifier != that.numericalIdentifier) return false;
+    if (personalCooldown != that.personalCooldown) return false;
+    if (!prisonSector.equals(that.prisonSector)) return false;
+    if (!displayName.equals(that.displayName)) return false;
+    return getCoordinates().equals(that.getCoordinates());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = prisonSector.hashCode();
+    result = 31 * result + numericalIdentifier;
+    result = 31 * result + displayName.hashCode();
+    result = 31 * result + personalCooldown;
+    result = 31 * result + getCoordinates().hashCode();
+    return result;
   }
 }
