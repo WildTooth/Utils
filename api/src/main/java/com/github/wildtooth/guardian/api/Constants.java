@@ -1,6 +1,8 @@
 package com.github.wildtooth.guardian.api;
 
+import com.github.wildtooth.guardian.api.util.MessageType;
 import net.labymod.api.client.gui.icon.Icon;
+import java.util.Map;
 
 /**
  * Constants used throughout the addon to provide a consistent set of values for both the addon itself and depending addons.
@@ -17,6 +19,7 @@ public interface Constants {
   I18nKeys i18nKeys();
   Icons icons();
   Data data();
+  FreakyVilleMessages freakyVilleMessages();
 
   interface I18nKeys {
     String head();
@@ -36,5 +39,9 @@ public interface Constants {
 
   interface Data {
     String guardPostData();
+  }
+
+  interface FreakyVilleMessages {
+    Map<String, MessageType> messages();
   }
 }

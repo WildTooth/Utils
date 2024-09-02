@@ -1,13 +1,16 @@
 package com.github.wildtooth.guardian.core.util;
 
 import com.github.wildtooth.guardian.api.Constants;
+import com.github.wildtooth.guardian.api.util.MessageType;
 import net.labymod.api.client.gui.icon.Icon;
+import org.spongepowered.include.com.google.common.collect.ImmutableMap;
 
 public class DefaultConstants implements Constants {
 
   private final I18nKeys i18nKeys = new DefaultI18nKeys();
   private final Icons icons = new DefaultIcons();
   private final Data data = new DefaultData();
+  private final FreakyVilleMessages freakyVilleMessages = new DefaultFreakyVilleMessages();
 
   @Override
   public I18nKeys i18nKeys() {
@@ -22,6 +25,11 @@ public class DefaultConstants implements Constants {
   @Override
   public Data data() {
     return data;
+  }
+
+  @Override
+  public FreakyVilleMessages freakyVilleMessages() {
+    return freakyVilleMessages;
   }
 
   private static class DefaultI18nKeys implements I18nKeys {
@@ -57,24 +65,31 @@ public class DefaultConstants implements Constants {
   }
 
   private static class DefaultIcons implements Icons {
+
+    private final String base = "https://raw.githubusercontent.com/FreakyVille-Trademarket/.github/main/scripture/icons/";
+    private final Icon notificationInfoIcon = Icon.url(base + "info.png");
+    private final Icon notificationWarnIcon = Icon.url(base + "warn.png");
+    private final Icon notificationErrorIcon = Icon.url(base + "error.png");
+    private final Icon notificationDebugIcon = Icon.url(base + "debug.png");
+
     @Override
     public Icon notificationInfoIcon() {
-      return Icon.url("https://raw.githubusercontent.com/FreakyVille-Trademarket/.github/main/scripture/icons/info.png");
+      return notificationInfoIcon;
     }
 
     @Override
     public Icon notificationWarnIcon() {
-      return Icon.url("https://raw.githubusercontent.com/FreakyVille-Trademarket/.github/main/scripture/icons/warn.png");
+      return notificationWarnIcon;
     }
 
     @Override
     public Icon notificationErrorIcon() {
-      return Icon.url("https://raw.githubusercontent.com/FreakyVille-Trademarket/.github/main/scripture/icons/error.png");
+      return notificationErrorIcon;
     }
 
     @Override
     public Icon notificationDebugIcon() {
-      return Icon.url("https://raw.githubusercontent.com/FreakyVille-Trademarket/.github/main/scripture/icons/debug.png");
+      return notificationDebugIcon;
     }
   }
 
@@ -82,6 +97,18 @@ public class DefaultConstants implements Constants {
     @Override
     public String guardPostData() {
       return "https://raw.githubusercontent.com/WildTooth/FreakyVille-General-Data/main/entities/vagtposter.csv";
+    }
+  }
+
+  private static class DefaultFreakyVilleMessages implements FreakyVilleMessages {
+    @Override
+    public ImmutableMap<String, MessageType> messages() {
+      return ImmutableMap.<String, MessageType>builder()
+          .put("Stå stille i 10 sekunder for at aktivere vagtposten!", MessageType.GUARD_POST_TRY)
+          .put("Stå stille i 20 sekunder for at aktivere vagtposten!", MessageType.GUARD_POST_TRY)
+          .put("Du bevægede dig og har stoppet med at aktivere VagtPosten", MessageType.GUARD_POST_FAIL)
+          .put("Godt gået! Du aktiverede denne vagtpost!", MessageType.GUARD_POST_SUCCESS)
+          .build();
     }
   }
 }
