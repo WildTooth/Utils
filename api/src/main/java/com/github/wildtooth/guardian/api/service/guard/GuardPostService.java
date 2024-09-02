@@ -4,6 +4,7 @@ import com.github.wildtooth.guardian.api.guard.GuardPost;
 import com.github.wildtooth.guardian.api.service.Registrable;
 import com.github.wildtooth.guardian.api.service.Service;
 import com.github.wildtooth.guardian.api.save.PersistentDataHolder;
+import net.labymod.api.util.Triple;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,7 +28,13 @@ public interface GuardPostService extends Service, Registrable, PersistentDataHo
 
   Map<GuardPost, Long> getGuardPostTimeMap();
 
+  GuardPost getGuardPostByLocation(Triple<Integer, Integer, Integer> location);
+
   GuardPost getNearestGuardPost();
+
+  Optional<GuardPost> getLastInteractedGuardPost();
+
+  void setLastInteractedGuardPost(GuardPost guardPost);
 
   GuardPost createGuardPost(String prisonSector, int numericalIdentifier, String displayName, int personalCooldown, int x, int y, int z);
 }

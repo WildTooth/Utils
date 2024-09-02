@@ -12,6 +12,7 @@ import com.github.wildtooth.guardian.api.util.FileUtil;
 import com.github.wildtooth.guardian.core.guard.DefaultGuardPost;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
 import net.labymod.api.util.Pair;
+import net.labymod.api.util.Triple;
 import net.labymod.api.util.io.web.request.Request;
 import net.labymod.api.util.io.web.request.Response;
 import net.labymod.api.util.logging.Logging;
@@ -25,6 +26,7 @@ public class DefaultGuardPostService implements GuardPostService {
   private final TranslationLogger logger;
   private final Map<String, GuardPost> identifierGuardPostMap;
   private final Map<GuardPost, Long> guardPostLastUpdateMap;
+  private GuardPost lastInteractedGuardPost;
 
   public DefaultGuardPostService() {
     this.logger = new TranslationLogger(Logging.getLogger());
@@ -126,6 +128,16 @@ public class DefaultGuardPostService implements GuardPostService {
   }
 
   @Override
+  public GuardPost getGuardPostByLocation(Triple<Integer, Integer, Integer> location) {
+    for (GuardPost guardPost : this.identifierGuardPostMap.values()) {
+      if (guardPost.getCoordinates().equals(location)) {
+        return guardPost;
+      }
+    }
+    return null;
+  }
+
+  @Override
   public GuardPost getNearestGuardPost() {
     LocationHelper locationHelper = RegistryProvider.getRegistry().get(LocationHelper.class).orElse(null);
     if (locationHelper == null) {
@@ -139,6 +151,16 @@ public class DefaultGuardPostService implements GuardPostService {
       }
     }
     return nearestGuardPost.getSecond();
+  }
+
+  @Override
+  public Optional<GuardPost> getLastInteractedGuardPost() {
+    return lastInteractedGuardPost == null ? Optional.empty() : Optional.of(lastInteractedGuardPost);
+  }
+
+  @Override
+  public void setLastInteractedGuardPost(GuardPost guardPost) {
+    this.lastInteractedGuardPost = guardPost;
   }
 
   @Override

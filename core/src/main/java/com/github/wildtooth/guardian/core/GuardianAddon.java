@@ -14,6 +14,9 @@ import com.github.wildtooth.guardian.core.gson.DefaultSpecializedGson;
 import com.github.wildtooth.guardian.core.listener.GameShutdownListener;
 import com.github.wildtooth.guardian.core.listener.GuardDeathListener;
 import com.github.wildtooth.guardian.core.listener.GuardShiftSwitchListener;
+import com.github.wildtooth.guardian.core.listener.internals.PrisonNavigationListener;
+import com.github.wildtooth.guardian.core.listener.internals.ScoreBoardListener;
+import com.github.wildtooth.guardian.core.listener.internals.ServerNavigationListener;
 import com.github.wildtooth.guardian.core.services.DefaultRegistry;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardPostService;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardService;
@@ -46,6 +49,11 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
 
     registerCommand(new TestCommand(freakyvilleConnection));
     registerCommand(new GuardPostCommand(freakyvilleConnection));
+
+    registerListener(new ServerNavigationListener(freakyvilleConnection));
+    registerListener(new ScoreBoardListener(freakyvilleConnection));
+    registerListener(new PrisonNavigationListener(freakyvilleConnection));
+
     registerListener(new GuardShiftSwitchListener());
     registerListener(new GuardDeathListener());
     registerListener(new GameShutdownListener());
