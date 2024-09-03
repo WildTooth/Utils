@@ -39,8 +39,8 @@ public class PrisonNavigationListener {
         this.clientInfo.setPrison(prisonFromHeader(plainMessage));
       } catch (IllegalArgumentException e) {
         this.clientInfo.setPrison(null);
-        Logging.getLogger().error(I18n.translate("fvplus.logging.error.findingPrison"), e);
-        Laby.references().chatExecutor().displayClientMessage(Component.translatable("fvplus.logging.error.findingPrison", NamedTextColor.RED));
+        Logging.getLogger().error(I18n.translate("guardian.log.error.findingPrison"), e);
+        Laby.references().chatExecutor().displayClientMessage(Component.translatable("guardian.log.error.findingPrison", NamedTextColor.RED));
       }
     }
   }
@@ -54,7 +54,7 @@ public class PrisonNavigationListener {
       case "C" -> PrisonSector.C;
       case "B" -> PrisonSector.B;
       case "A" -> PrisonSector.A;
-      default -> throw new IllegalArgumentException(I18n.translate("fvplus.logging.error.unexpectedValue", restProduct.toUpperCase()));
+      default -> throw new IllegalArgumentException(I18n.translate("guardian.log.error.unexpectedValue", restProduct.toUpperCase()));
     };
   }
 

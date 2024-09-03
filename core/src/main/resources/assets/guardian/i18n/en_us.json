@@ -7,7 +7,11 @@
       }
     },
     "log": {
-      "enabled": "Guardian er slået til"
+      "enabled": "Guardian er slået til",
+      "error": {
+        "findingPrison": "Der opstod en fejl under forsøg på at finde blokken",
+        "unexpectedValue": "Uventet værdi: %s"
+      }
     },
     "registry": {
       "logOutPut": {
@@ -44,6 +48,12 @@
         "leave": "Vagten %s er stemplet ud af din fængselsblok!"
       },
       "guardDeath": "Vagten %s døde lige i %s!"
+    },
+    "command": {
+      "vagtpost": {
+        "inSector": "Vagtposter på cooldown i %s",
+        "empty": "Ingen vagtposter er på cooldown i %s"
+      }
     }
   }
 }

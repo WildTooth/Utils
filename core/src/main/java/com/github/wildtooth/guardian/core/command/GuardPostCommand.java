@@ -46,10 +46,11 @@ public class GuardPostCommand extends Command {
   private void sendGuardPostList(PrisonSector sector) {
     GuardPost[] guardPosts = getGuardPostsOfSector(sector);
     if (guardPosts.length == 0) {
+      Component text = Component.translatable("guardian.command.vagtpost.empty", NamedTextColor.RED);
+      displayMessage(text);
       return;
     }
-    Component text = Component.text("Guard Posts in Sector ", NamedTextColor.GRAY)
-        .append(Component.text(sector.toString(), NamedTextColor.AQUA));
+    Component text = Component.translatable("guardian.command.vagtpost.inSector", NamedTextColor.GRAY, sector.toComponent());
     displayMessage(text);
     for (GuardPost guardPost : guardPosts) {
       TextComponent.Builder builder = TextComponent.builder();
