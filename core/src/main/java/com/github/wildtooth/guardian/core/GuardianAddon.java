@@ -27,13 +27,24 @@ import com.github.wildtooth.guardian.core.util.DefaultConstants;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.api.util.I18n;
+import net.labymod.api.util.io.web.request.Request;
+import net.labymod.api.util.io.web.request.Response;
+import net.labymod.api.util.version.SemanticVersion;
+import java.util.ArrayList;
 
 @AddonMain
 public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
 
+  private static final SemanticVersion VERSION = new SemanticVersion("1.0.0");
+  private boolean needsUpdate = false;
+
   @Override
   protected void enable() {
     this.registerSettingCategory();
+
+    // Køres først
+    checkForUpdate();
+
     LocationHelper locationHelper = ((ReferenceStorage) this.referenceStorageAccessor()).locationHelper();
 
     SpecializedGsonProvider.setSpecializedGson(new DefaultSpecializedGson());
@@ -56,7 +67,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     registerListener(new ChatMessageListener());
     registerListener(new PlayerInfoListener());
 
-    registerListener(new ServerNavigationListener(freakyvilleConnection));
+    registerListener(new ServerNavigationListener(needsUpdate, freakyvilleConnection));
     registerListener(new ScoreBoardListener(freakyvilleConnection));
     registerListener(new PrisonNavigationListener(freakyvilleConnection));
 
@@ -71,5 +82,24 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
   @Override
   protected Class<GuardianConfiguration> configurationClass() {
     return GuardianConfiguration.class;
+  }
+
+  private void checkForUpdate() {
+    Response<String> response = Request.ofString()
+        .url("https://raw.githubusercontent.com/WildTooth/FreakyVille-General-Data/main/tools/versions.csv")
+        .executeSync();
+    ArrayList<String[]> lines = new ArrayList<>();
+    for (String line : response.get().split("\n")) {
+      lines.add(line.split(","));
+    }
+    for (String[] line : lines) {
+      if (!line[0].equals("GUARDIAN")) {
+        continue;
+      }
+      SemanticVersion readVersion = new SemanticVersion(line[1]);
+      if (GuardianAddon.VERSION.isLowerThan(readVersion)) {
+        this.needsUpdate = true;
+      }
+    }
   }
 }

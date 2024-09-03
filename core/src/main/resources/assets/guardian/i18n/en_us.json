@@ -38,7 +38,7 @@
     },
     "notifications": {
       "info": "Information",
-      "warning": "Advarsel",
+      "warn": "Advarsel",
       "error": "Fejl",
       "debug": "Debug"
     },
@@ -54,6 +54,13 @@
         "inSector": "Vagtposter på cooldown i %s",
         "empty": "Ingen vagtposter er på cooldown i %s"
       }
+    },
+    "update": {
+      "title": {
+        "header": "Opdatering tilgængelig",
+        "contact": "Kontakt Champen_V1ldtand for at få opdateringen!"
+      },
+      "notification": "Guardian er forældet, kontakt Champen_V1ldtand for at få opdateringen!"
     }
   }
 }
