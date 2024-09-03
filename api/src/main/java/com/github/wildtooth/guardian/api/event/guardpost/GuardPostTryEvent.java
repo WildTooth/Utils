@@ -9,23 +9,24 @@ import org.jetbrains.annotations.Nullable;
 
 public class GuardPostTryEvent extends GuardPostEvent {
 
-  private final Triple<Integer, Integer, Integer> coordsToNearestGuardPost;
+  private Triple<Integer, Integer, Integer> coordsToNearestGuardPost;
 
   public GuardPostTryEvent(@Nullable GuardPost guardPost) {
     super(guardPost);
     if (guardPost != null) {
       this.coordsToNearestGuardPost = guardPost.getCoordinates();
-      return;
     }
-    GuardPostService guardPostService = RegistryProvider.getRegistry().get(GuardPostService.class).orElse(null);
-    if (guardPostService == null) {
-      throw new IllegalStateException("GuardPostService is not registered");
-    }
-    this.coordsToNearestGuardPost = guardPostService.getNearestGuardPost().getCoordinates();
   }
 
   @NotNull
   public Triple<Integer, Integer, Integer> getCoordsToNearestGuardPost() {
+    if (this.coordsToNearestGuardPost == null) {
+      GuardPostService guardPostService = RegistryProvider.getRegistry().get(GuardPostService.class).orElse(null);
+      if (guardPostService == null) {
+        throw new IllegalStateException("GuardPostService is not registered");
+      }
+      this.coordsToNearestGuardPost = guardPostService.getNearestGuardPost().getCoordinates();
+    }
     return this.coordsToNearestGuardPost;
   }
 }
