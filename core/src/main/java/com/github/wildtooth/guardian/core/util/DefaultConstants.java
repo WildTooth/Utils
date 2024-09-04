@@ -3,6 +3,7 @@ package com.github.wildtooth.guardian.core.util;
 import com.github.wildtooth.guardian.api.Constants;
 import com.github.wildtooth.guardian.api.util.MessageType;
 import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.util.Pair;
 import org.spongepowered.include.com.google.common.collect.ImmutableMap;
 
 public class DefaultConstants implements Constants {
@@ -108,6 +109,20 @@ public class DefaultConstants implements Constants {
           .put("Stå stille i 20 sekunder for at aktivere vagtposten!", MessageType.GUARD_POST_TRY)
           .put("Du bevægede dig og har stoppet med at aktivere VagtPosten", MessageType.GUARD_POST_FAIL)
           .put("Godt gået! Du aktiverede denne vagtpost!", MessageType.GUARD_POST_SUCCESS)
+          .build();
+    }
+
+    @Override
+    public ImmutableMap<Pair<String, String>, MessageType> advancedMessages() {
+      return ImmutableMap.<Pair<String, String>, MessageType>builder()
+          .put(Pair.of("VAGT-ALARM:", "prøver at bryde pengeskabet op i banken i A+ Området!"), MessageType.A_PLUS_GUARD_VAULT_START)
+          .put(Pair.of("VAGT-ALARM:", "forsøger at røve vagternes værdi-boks i A!"), MessageType.A_GUARD_VAULT_START)
+          .put(Pair.of("VAGT-ALARM:", "prøver at bryde pengeskabet op i banken i B+ Området!"), MessageType.B_PLUS_GUARD_VAULT_START)
+
+          .put(Pair.of("VAGT-ALARM: Det lykkedes", "at bryde bankens pengeskab op i A+ Området!"), MessageType.A_PLUS_GUARD_VAULT_FINISH)
+          .put(Pair.of("VAGT-ALARM:", "gennemførte et røveri i vagternes værdi-boks i A!"), MessageType.A_GUARD_VAULT_FINISH)
+          .put(Pair.of("VAGT-ALARM: Det lykkedes", "at bryde bankens pengeskab op i B+ Området!"), MessageType.B_PLUS_GUARD_VAULT_FINISH)
+
           .build();
     }
   }

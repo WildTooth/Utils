@@ -2,6 +2,7 @@ package com.github.wildtooth.guardian.api;
 
 import com.github.wildtooth.guardian.api.util.MessageType;
 import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.util.Pair;
 import java.util.Map;
 
 /**
@@ -43,5 +44,6 @@ public interface Constants {
 
   interface FreakyVilleMessages {
     Map<String, MessageType> messages();
+    Map<Pair<String, String>, MessageType> advancedMessages();
   }
 }
