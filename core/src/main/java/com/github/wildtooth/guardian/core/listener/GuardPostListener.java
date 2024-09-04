@@ -61,7 +61,7 @@ public class GuardPostListener {
     if (event.getGuardPost() == null) {
       throw new IllegalStateException("GuardPost does not exist???????");
     }
-    guardPostService.putGuardPostOnCooldown(event.getGuardPost());
+    guardPostService.putGuardPostOnCooldown(event.getGuardPost(), event.getTime());
     guardPostService.setLastInteractedGuardPost(null);
   }
 

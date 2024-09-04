@@ -118,6 +118,11 @@ public class DefaultGuardPostService implements GuardPostService {
   }
 
   @Override
+  public void putGuardPostOnCooldown(GuardPost guardPost, long lastTaken) {
+    this.guardPostLastUpdateMap.put(guardPost, lastTaken);
+  }
+
+  @Override
   public boolean isGuardPostOnCooldown(GuardPost guardPost) {
     return getCooldownTime(guardPost) > 0;
   }

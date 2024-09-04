@@ -60,6 +60,12 @@ public interface GuardPostService extends Service, Registrable, PersistentDataHo
   void putGuardPostOnCooldown(GuardPost guardPost);
 
   /**
+   * Puts a {@link GuardPost} on cooldown with a specified last taken time.
+   * @param guardPost The {@link GuardPost} to put on cooldown.
+   */
+  void putGuardPostOnCooldown(GuardPost guardPost, long lastTaken);
+
+  /**
    * Checks if a {@link GuardPost} is on cooldown.
    * @param guardPost The {@link GuardPost} to check.
    * @return          Whether the {@link GuardPost} is on cooldown.
