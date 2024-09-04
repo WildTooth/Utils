@@ -35,15 +35,14 @@ import java.util.ArrayList;
 @AddonMain
 public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
 
-  private static final SemanticVersion VERSION = new SemanticVersion("1.0.0");
-  private boolean needsUpdate = false;
+
 
   @Override
   protected void enable() {
     this.registerSettingCategory();
 
     // Køres først
-    checkForUpdate();
+    boolean needsUpdate = shouldUpdate();
 
     LocationHelper locationHelper = ((ReferenceStorage) this.referenceStorageAccessor()).locationHelper();
 
@@ -84,7 +83,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     return GuardianConfiguration.class;
   }
 
-  private void checkForUpdate() {
+  private boolean shouldUpdate() {
     Response<String> response = Request.ofString()
         .url("https://raw.githubusercontent.com/WildTooth/FreakyVille-General-Data/main/tools/versions.csv")
         .executeSync();
@@ -96,10 +95,12 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
       if (!line[0].equals("GUARDIAN")) {
         continue;
       }
+      SemanticVersion ourVersion = new SemanticVersion(this.addonInfo().getVersion());
       SemanticVersion readVersion = new SemanticVersion(line[1]);
-      if (GuardianAddon.VERSION.isLowerThan(readVersion)) {
-        this.needsUpdate = true;
+      if (ourVersion.isLowerThan(readVersion)) {
+        return true;
       }
     }
+    return false;
   }
 }
