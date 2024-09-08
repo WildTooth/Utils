@@ -15,6 +15,7 @@ import com.github.wildtooth.guardian.core.listener.GameShutdownListener;
 import com.github.wildtooth.guardian.core.listener.GuardDeathListener;
 import com.github.wildtooth.guardian.core.listener.GuardPostListener;
 import com.github.wildtooth.guardian.core.listener.GuardShiftSwitchListener;
+import com.github.wildtooth.guardian.core.listener.GuardVaultListener;
 import com.github.wildtooth.guardian.core.listener.convertions.ChatMessageListener;
 import com.github.wildtooth.guardian.core.listener.convertions.PlayerInfoListener;
 import com.github.wildtooth.guardian.core.listener.internals.PrisonNavigationListener;
@@ -24,7 +25,10 @@ import com.github.wildtooth.guardian.core.services.DefaultRegistry;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardPostService;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardService;
 import com.github.wildtooth.guardian.core.util.DefaultConstants;
+import com.github.wildtooth.guardian.core.widgets.WidgetUpdater;
+import com.github.wildtooth.guardian.core.widgets.Widgets;
 import net.labymod.api.addon.LabyAddon;
+import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.api.util.I18n;
 import net.labymod.api.util.io.web.request.Request;
@@ -60,6 +64,17 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
         this.labyAPI().minecraft().getClientPlayer()
     );
 
+    HudWidgetRegistry hudWidgetRegistry = this.labyAPI().hudWidgetRegistry();
+
+    hudWidgetRegistry.register(Widgets.A_PLUS_TIMER);
+    hudWidgetRegistry.register(Widgets.A_TIMER);
+    hudWidgetRegistry.register(Widgets.B_PLUS_TIMER);
+    hudWidgetRegistry.register(Widgets.A_PLUS_ROBBER_WIDGET);
+    hudWidgetRegistry.register(Widgets.A_ROBBER_WIDGET);
+    hudWidgetRegistry.register(Widgets.B_PLUS_ROBBER_WIDGET);
+
+    registerListener(new WidgetUpdater(hudWidgetRegistry));
+
     registerCommand(new TestCommand(freakyvilleConnection));
     registerCommand(new GuardPostCommand(freakyvilleConnection));
 
@@ -69,6 +84,8 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     registerListener(new ServerNavigationListener(needsUpdate, freakyvilleConnection));
     registerListener(new ScoreBoardListener(freakyvilleConnection));
     registerListener(new PrisonNavigationListener(freakyvilleConnection));
+
+    registerListener(new GuardVaultListener());
 
     registerListener(new GuardPostListener(freakyvilleConnection));
     registerListener(new GuardShiftSwitchListener());
