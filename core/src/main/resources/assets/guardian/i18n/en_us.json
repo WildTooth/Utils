@@ -61,6 +61,19 @@
         "contact": "Kontakt Champen_V1ldtand for at få opdateringen!"
       },
       "notification": "Guardian er forældet, kontakt Champen_V1ldtand for at få opdateringen!"
+    },
+    "hudWidget": {
+      "b_plus_timer": "B+ Ledetid",
+      "a_plus_timer": "A+ Ledetid",
+      "a_timer": "A Ledetid",
+      "b_plus_robber_widget": "B+ Røveren",
+      "a_plus_robber_widget": "A+ Røveren",
+      "a_robber_widget": "A Røveren"
+    },
+    "widgets": {
+      "timer": {
+        "unavailable": "Ikke tilgængelig"
+      }
     }
   }
 }
