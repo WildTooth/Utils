@@ -2,12 +2,12 @@ package com.github.wildtooth.guardian.core.listener;
 
 import com.github.wildtooth.guardian.api.event.vault.GuardVaultFinishEvent;
 import com.github.wildtooth.guardian.api.event.vault.GuardVaultTryEvent;
+import com.github.wildtooth.guardian.api.service.RegistryProvider;
+import com.github.wildtooth.guardian.api.service.guard.GuardVaultService;
 import com.github.wildtooth.guardian.core.widgets.Widgets;
 import net.labymod.api.event.Subscribe;
 
 public class GuardVaultListener {
-
-
 
   public GuardVaultListener() {
 
@@ -28,6 +28,12 @@ public class GuardVaultListener {
         Widgets.A_TIMER.startTimer();
         Widgets.A_ROBBER_WIDGET.setRobberName(event.getRobber());
         break;
+      default:
+        return;
+    }
+    GuardVaultService guardVaultService = RegistryProvider.getRegistry().get(GuardVaultService.class).orElse(null);
+    if (guardVaultService != null) {
+      guardVaultService.handleRobbery(event.getSector(), event.getRobber());
     }
   }
 
@@ -49,5 +55,10 @@ public class GuardVaultListener {
           break;
       }
     }
+    RegistryProvider.getRegistry().get(GuardVaultService.class).ifPresent(
+        guardVaultService -> guardVaultService.removeFromLimbo(
+            guardVaultService.getVaultBySector(event.getSector()).orElse(null)
+        )
+    );
   }
 }

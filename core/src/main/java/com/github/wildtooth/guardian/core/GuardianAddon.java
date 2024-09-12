@@ -5,9 +5,11 @@ import com.github.wildtooth.guardian.api.freakyville.FreakyvilleConnection;
 import com.github.wildtooth.guardian.api.generated.ReferenceStorage;
 import com.github.wildtooth.guardian.api.gson.SpecializedGsonProvider;
 import com.github.wildtooth.guardian.api.refrences.LocationHelper;
+import com.github.wildtooth.guardian.api.service.Registry;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
+import com.github.wildtooth.guardian.api.service.guard.GuardVaultService;
 import com.github.wildtooth.guardian.core.command.GuardPostCommand;
 import com.github.wildtooth.guardian.core.command.TestCommand;
 import com.github.wildtooth.guardian.core.gson.DefaultSpecializedGson;
@@ -24,6 +26,8 @@ import com.github.wildtooth.guardian.core.listener.internals.ServerNavigationLis
 import com.github.wildtooth.guardian.core.services.DefaultRegistry;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardPostService;
 import com.github.wildtooth.guardian.core.services.guard.DefaultGuardService;
+import com.github.wildtooth.guardian.core.services.guard.DefaultGuardVaultService;
+import com.github.wildtooth.guardian.core.util.DataOutput;
 import com.github.wildtooth.guardian.core.util.DefaultConstants;
 import com.github.wildtooth.guardian.core.widgets.WidgetUpdater;
 import com.github.wildtooth.guardian.core.widgets.Widgets;
@@ -31,8 +35,6 @@ import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.api.util.I18n;
-import net.labymod.api.util.io.web.request.Request;
-import net.labymod.api.util.io.web.request.Response;
 import net.labymod.api.util.version.SemanticVersion;
 import java.util.ArrayList;
 
@@ -54,10 +56,14 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
 
     ConstantsProvider.setConstants(new DefaultConstants());
 
-    RegistryProvider.setRegistry(new DefaultRegistry());
-    RegistryProvider.getRegistry().register(GuardService.class, new DefaultGuardService(), false);
-    RegistryProvider.getRegistry().register(GuardPostService.class, new DefaultGuardPostService(), false);
-    RegistryProvider.getRegistry().register(LocationHelper.class, locationHelper, false);
+    Registry registry = new DefaultRegistry();
+
+    registry.register(GuardService.class, new DefaultGuardService(), false);
+    registry.register(GuardPostService.class, new DefaultGuardPostService(), false);
+    registry.register(GuardVaultService.class, new DefaultGuardVaultService(), false);
+    registry.register(LocationHelper.class, locationHelper, false);
+
+    RegistryProvider.setRegistry(registry);
 
     FreakyvilleConnection freakyvilleConnection = new FreakyvilleConnection(
         this.labyAPI().serverController(),
@@ -69,6 +75,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     hudWidgetRegistry.register(Widgets.A_PLUS_TIMER);
     hudWidgetRegistry.register(Widgets.A_TIMER);
     hudWidgetRegistry.register(Widgets.B_PLUS_TIMER);
+
     hudWidgetRegistry.register(Widgets.A_PLUS_ROBBER_WIDGET);
     hudWidgetRegistry.register(Widgets.A_ROBBER_WIDGET);
     hudWidgetRegistry.register(Widgets.B_PLUS_ROBBER_WIDGET);
@@ -101,13 +108,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
   }
 
   private boolean shouldUpdate() {
-    Response<String> response = Request.ofString()
-        .url("https://raw.githubusercontent.com/WildTooth/FreakyVille-General-Data/main/tools/versions.csv")
-        .executeSync();
-    ArrayList<String[]> lines = new ArrayList<>();
-    for (String line : response.get().split("\n")) {
-      lines.add(line.split(","));
-    }
+    ArrayList<String[]> lines = DataOutput.csv("https://raw.githubusercontent.com/WildTooth/FreakyVille-General-Data/main/tools/versions.csv");
     for (String[] line : lines) {
       if (!line[0].equals("GUARDIAN")) {
         continue;

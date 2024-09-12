@@ -63,16 +63,30 @@
       "notification": "Guardian er forældet, kontakt Champen_V1ldtand for at få opdateringen!"
     },
     "hudWidget": {
-      "b_plus_timer": "B+ Ledetid",
-      "a_plus_timer": "A+ Ledetid",
-      "a_timer": "A Ledetid",
-      "b_plus_robber_widget": "B+ Røveren",
-      "a_plus_robber_widget": "A+ Røveren",
-      "a_robber_widget": "A Røveren"
+      "b_plus_timer": {
+        "name": "B+ Ledetid"
+      },
+      "a_plus_timer": {
+        "name": "A+ Ledetid"
+      },
+      "a_timer": {
+        "name": "A Ledetid"
+      },
+      "b_plus_robber_widget": {
+        "name": "B+ Røveren"
+      },
+      "a_plus_robber_widget": {
+        "name": "A+ Røveren"
+      },
+      "a_robber_widget": {
+        "name": "A Røveren"
+      }
     },
     "widgets": {
       "timer": {
-        "unavailable": "Ikke tilgængelig"
+        "timeLeft": {
+          "unavailable": "Ikke tilgængelig"
+        }
       }
     }
   }

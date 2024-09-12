@@ -11,6 +11,7 @@ import com.github.wildtooth.guardian.api.util.CoordinateUtil;
 import com.github.wildtooth.guardian.api.util.FileUtil;
 import com.github.wildtooth.guardian.core.guard.DefaultGuardPost;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
+import com.github.wildtooth.guardian.core.util.DataOutput;
 import net.labymod.api.util.Pair;
 import net.labymod.api.util.Triple;
 import net.labymod.api.util.io.web.request.Request;
@@ -46,13 +47,7 @@ public class DefaultGuardPostService implements GuardPostService {
 
   @Override
   public void initialize() {
-    Response<String> guardPostResponse = Request.ofString()
-        .url(ConstantsProvider.getConstants().data().guardPostData())
-        .executeSync();
-    ArrayList<String[]> guardPostData = new ArrayList<>();
-    for (String line : guardPostResponse.get().split("\n")) {
-      guardPostData.add(line.split(","));
-    }
+    ArrayList<String[]> guardPostData = DataOutput.csv(ConstantsProvider.getConstants().data().guardPostData());
     for (String[] guardPost : guardPostData) {
       addGuardPost(createGuardPost(guardPost[0], Integer.parseInt(guardPost[1]), guardPost[2], Integer.parseInt(guardPost[3]), Integer.parseInt(guardPost[4]), Integer.parseInt(guardPost[5]), Integer.parseInt(guardPost[6])));
     }

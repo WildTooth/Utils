@@ -4,7 +4,6 @@ import com.github.wildtooth.guardian.api.refrences.LocationHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.client.Minecraft;
 import net.labymod.api.models.Implements;
-import net.labymod.api.util.IntIntTriple;
 import net.labymod.api.util.Triple;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
