@@ -1,5 +1,7 @@
 package com.github.wildtooth.guardian.api.freakyville;
 
+import com.github.wildtooth.guardian.api.service.RegistryProvider;
+import com.github.wildtooth.guardian.api.service.guard.GuardService;
 import com.github.wildtooth.guardian.api.util.PrisonSector;
 import net.labymod.api.client.entity.player.ClientPlayer;
 import net.labymod.api.client.network.server.ServerController;
@@ -12,6 +14,7 @@ public class FreakyvilleConnection {
   private FreakyvilleServer currentServer;
   private PrisonSector prison;
   private boolean hasUpdatedToCurrentServer;
+  private boolean isGuard;
 
   public FreakyvilleConnection(ServerController serverController, ClientPlayer clientPlayer) {
     this.serverController = serverController;
@@ -33,6 +36,9 @@ public class FreakyvilleConnection {
 
   public void setClientPlayer(ClientPlayer clientPlayer) {
     this.clientPlayer = clientPlayer;
+    RegistryProvider.getRegistry().get(GuardService.class).ifPresent(guardService -> {
+      this.isGuard = guardService.hasGuard(clientPlayer.getUniqueId());
+    });
   }
 
   public FreakyvilleServer getCurrentServer() {
@@ -57,6 +63,10 @@ public class FreakyvilleConnection {
 
   public void setHasUpdatedToCurrentServer(boolean hasUpdatedToCurrentServer) {
     this.hasUpdatedToCurrentServer = hasUpdatedToCurrentServer;
+  }
+
+  public boolean isGuard() {
+    return isGuard;
   }
 
   private boolean isValidServerAddress(String address) {

@@ -2,7 +2,6 @@ package com.github.wildtooth.guardian.core;
 
 import com.github.wildtooth.guardian.api.ConstantsProvider;
 import com.github.wildtooth.guardian.api.freakyville.FreakyvilleConnection;
-import com.github.wildtooth.guardian.api.generated.ReferenceStorage;
 import com.github.wildtooth.guardian.api.gson.SpecializedGsonProvider;
 import com.github.wildtooth.guardian.api.refrences.LocationHelper;
 import com.github.wildtooth.guardian.api.service.Registry;
@@ -50,7 +49,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     // Køres først
     boolean needsUpdate = shouldUpdate();
 
-    LocationHelper locationHelper = ((ReferenceStorage) this.referenceStorageAccessor()).locationHelper();
+    //LocationHelper locationHelper = ((ReferenceStorage) this.referenceStorageAccessor()).locationHelper();
 
     SpecializedGsonProvider.setSpecializedGson(new DefaultSpecializedGson());
 
@@ -61,7 +60,7 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     registry.register(GuardService.class, new DefaultGuardService(), false);
     registry.register(GuardPostService.class, new DefaultGuardPostService(), false);
     registry.register(GuardVaultService.class, new DefaultGuardVaultService(), false);
-    registry.register(LocationHelper.class, locationHelper, false);
+    //registry.register(LocationHelper.class, locationHelper, false);
 
     RegistryProvider.setRegistry(registry);
 
@@ -85,8 +84,8 @@ public class GuardianAddon extends LabyAddon<GuardianConfiguration> {
     registerCommand(new TestCommand(freakyvilleConnection));
     registerCommand(new GuardPostCommand(freakyvilleConnection));
 
-    registerListener(new ChatMessageListener());
-    registerListener(new PlayerInfoListener());
+    registerListener(new ChatMessageListener(freakyvilleConnection));
+    registerListener(new PlayerInfoListener(freakyvilleConnection));
 
     registerListener(new ServerNavigationListener(needsUpdate, freakyvilleConnection));
     registerListener(new ScoreBoardListener(freakyvilleConnection));

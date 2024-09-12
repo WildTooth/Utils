@@ -2,11 +2,14 @@ package com.github.wildtooth.guardian.core.services.guard;
 
 import com.github.wildtooth.guardian.api.guard.Guard;
 import com.github.wildtooth.guardian.api.service.guard.GuardService;
+import com.github.wildtooth.guardian.core.guard.DefaultGuard;
 import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import com.github.wildtooth.guardian.core.util.DataOutput;
 import net.labymod.api.util.logging.Logging;
 
 public class DefaultGuardService implements GuardService {
@@ -30,6 +33,12 @@ public class DefaultGuardService implements GuardService {
 
   @Override
   public void initialize() {
+    ArrayList<String[]> guards = DataOutput.csv("https://raw.githubusercontent.com/FreakyVille-Trademarket/Public-Freakyville-Datahub/main/vagter/vagter.csv");
+    guards.forEach(guard -> {
+      UUID uuid = UUID.fromString(guard[0]);
+      String name = guard[1];
+      addGuard(new DefaultGuard(uuid, name));
+    });
     this.logger.info("guardian.service.shared.initialize", this.logger.translate("guardian.service.guard.name"));
   }
 

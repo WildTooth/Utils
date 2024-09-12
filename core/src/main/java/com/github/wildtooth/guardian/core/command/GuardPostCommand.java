@@ -25,6 +25,9 @@ public class GuardPostCommand extends Command {
     if (!this.freakyvilleConnection.isOnFreakyVille()) {
       return false;
     }
+    if (!freakyvilleConnection.isGuard()) {
+      return false;
+    }
     if (this.freakyvilleConnection.getPrison().isEmpty()) {
       return true;
     }
