@@ -70,20 +70,20 @@ public class ChatMessageListener {
   private <E extends Event> void fireEvent(E event, Object... args) {
     Registry registry = RegistryProvider.getRegistry();
     GuardPostService guardPostService = registry.get(GuardPostService.class).orElse(null);
-    //LocationHelper locationHelper = registry.get(LocationHelper.class).orElse(null);
+    LocationHelper locationHelper = registry.get(LocationHelper.class).orElse(null);
     if (guardPostService == null) {
       throw new IllegalStateException("GuardPostService is not registered.");
     }
-    //if (locationHelper == null) {
-    //  throw new IllegalStateException("LocationHelper is not registered.");
-    //}
+    if (locationHelper == null) {
+      throw new IllegalStateException("LocationHelper is not registered.");
+    }
     Event e = null;
     if (event instanceof GuardPostTryEvent) {
-      //e = new GuardPostTryEvent(guardPostService.getGuardPostByLocation(locationHelper.getIntCoordinates(5)));
+      e = new GuardPostTryEvent(guardPostService.getGuardPostByLocation(locationHelper.getIntCoordinates(5)));
     } else if (event instanceof GuardPostFailEvent) {
-      //e = new GuardPostFailEvent(guardPostService.getLastInteractedGuardPost().orElse(null));
+      e = new GuardPostFailEvent(guardPostService.getLastInteractedGuardPost().orElse(null));
     } else if (event instanceof GuardPostFinishEvent) {
-      //e = new GuardPostFinishEvent(guardPostService.getLastInteractedGuardPost().orElse(null));
+      e = new GuardPostFinishEvent(guardPostService.getLastInteractedGuardPost().orElse(null));
     } else if (event instanceof GuardVaultTryEvent) {
       if (args.length > 0 && args[0] instanceof String) {
         e = new GuardVaultTryEvent(((GuardVaultTryEvent) event).getSector(), (String) args[0]);
