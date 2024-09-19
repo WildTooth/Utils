@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.api.event.guardpost;
 
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import net.labymod.api.util.Triple;

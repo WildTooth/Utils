@@ -1,7 +1,7 @@
 package com.github.wildtooth.guardian.core.command;
 
 import com.github.wildtooth.guardian.api.freakyville.FreakyvilleConnection;
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import com.github.wildtooth.guardian.api.util.PrisonSector;

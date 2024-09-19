@@ -1,4 +1,4 @@
-package com.github.wildtooth.guardian.api.guard;
+package com.github.wildtooth.guardian.api.guardpost;
 
 import net.labymod.api.client.component.Component;
 import net.labymod.api.util.Triple;

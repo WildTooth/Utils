@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.core.guard;
 
-import com.github.wildtooth.guardian.api.guard.GuardVault;
+import com.github.wildtooth.guardian.api.guardvault.GuardVault;
 import com.github.wildtooth.guardian.api.util.PrisonSector;
 
 public class DefaultGuardVault implements GuardVault {

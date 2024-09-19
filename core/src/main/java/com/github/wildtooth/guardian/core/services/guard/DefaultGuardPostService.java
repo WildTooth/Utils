@@ -1,7 +1,7 @@
 package com.github.wildtooth.guardian.core.services.guard;
 
 import com.github.wildtooth.guardian.api.ConstantsProvider;
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import com.github.wildtooth.guardian.api.refrences.LocationHelper;
 import com.github.wildtooth.guardian.api.save.GuardPostSaveData;
 import com.github.wildtooth.guardian.api.save.SaveData;
@@ -14,8 +14,6 @@ import com.github.wildtooth.guardian.core.internatiolization.TranslationLogger;
 import com.github.wildtooth.guardian.core.util.DataOutput;
 import net.labymod.api.util.Pair;
 import net.labymod.api.util.Triple;
-import net.labymod.api.util.io.web.request.Request;
-import net.labymod.api.util.io.web.request.Response;
 import net.labymod.api.util.logging.Logging;
 import java.io.File;
 import java.util.ArrayList;

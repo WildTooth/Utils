@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.api.event.guardpost;
 
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import net.labymod.api.event.Event;
 import org.jetbrains.annotations.Nullable;
 

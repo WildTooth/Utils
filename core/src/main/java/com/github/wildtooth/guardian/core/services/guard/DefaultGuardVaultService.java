@@ -1,7 +1,7 @@
 package com.github.wildtooth.guardian.core.services.guard;
 
 import com.github.wildtooth.guardian.api.event.vault.GuardVaultFinishEvent;
-import com.github.wildtooth.guardian.api.guard.GuardVault;
+import com.github.wildtooth.guardian.api.guardvault.GuardVault;
 import com.github.wildtooth.guardian.api.service.guard.GuardVaultService;
 import com.github.wildtooth.guardian.api.util.PrisonSector;
 import com.github.wildtooth.guardian.core.guard.DefaultGuardVault;

@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.api.event.guardpost;
 
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 
 public class GuardPostFinishEvent extends GuardPostEvent {
 

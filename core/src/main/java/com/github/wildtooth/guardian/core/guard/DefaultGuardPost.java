@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.core.guard;
 
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import com.github.wildtooth.guardian.api.util.PrisonSector;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;

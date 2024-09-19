@@ -5,7 +5,7 @@ import com.github.wildtooth.guardian.api.event.guardpost.GuardPostFinishEvent;
 import com.github.wildtooth.guardian.api.event.guardpost.GuardPostTryEvent;
 import com.github.wildtooth.guardian.api.freakyville.FreakyvilleConnection;
 import com.github.wildtooth.guardian.api.freakyville.FreakyvilleServer;
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import com.github.wildtooth.guardian.api.service.RegistryProvider;
 import com.github.wildtooth.guardian.api.service.guard.GuardPostService;
 import net.labymod.api.event.Subscribe;

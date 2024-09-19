@@ -1,6 +1,6 @@
 package com.github.wildtooth.guardian.api.service.guard;
 
-import com.github.wildtooth.guardian.api.guard.GuardPost;
+import com.github.wildtooth.guardian.api.guardpost.GuardPost;
 import com.github.wildtooth.guardian.api.service.Registrable;
 import com.github.wildtooth.guardian.api.service.Service;
 import com.github.wildtooth.guardian.api.save.PersistentDataHolder;
